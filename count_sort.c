@@ -5,16 +5,21 @@
 #include <omp.h>
 
 void Usage(char* prog_name);
-void Count_sort(int a[], int n, int thread_count);
+int * Count_sort(int a[], int n, int thread_count);
 
 int main(int argc, char* argv[]) {                 
    int a[10] = {7,2,1,4,9,3,5,6,10,0};
-   int n, thread_count;
+   int n, thread_count, z;
+   int * result;
 
    if (argc != 2) Usage(argv[0]);
    thread_count = strtol(argv[1], NULL, 10);
 
-   Count_sort(a, n, thread_count);
+   result = Count_sort(a, n, thread_count);
+
+   for ( z = 0; z < 10; z++ ) {
+      printf( "%d\n", *(result[z]));
+   }
 
    return 0;
 }  /* main */
@@ -35,7 +40,7 @@ void Usage(char* prog_name) {
  * Purpose:     Sort an array 
  * In arg:      a, n thread_count
  */
-void Count_sort(int a[], int n, int thread_count){
+int * Count_sort(int a[], int n, int thread_count){
     int i, j, count;
     int* temp = malloc(n*sizeof(int));
 
@@ -51,4 +56,5 @@ void Count_sort(int a[], int n, int thread_count){
     }
     memcpy(a, temp, n*sizeof(int));
     free(temp);
+    return a;
 }
