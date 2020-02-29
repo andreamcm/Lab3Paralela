@@ -1,3 +1,12 @@
+/* File:    count_sort.c
+ *
+ * Authors: Ivette Cardona, Michelle Bloomfield, Andrea Cordon
+ * 
+ * Compile: gcc -o count_sort -fopenmp count_sort.c
+ * Usage:   ./count_sort <number of threads>
+ *
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,11 +21,13 @@ int main(int argc, char* argv[]) {
    int n, thread_count, z;
    int * result;
 
+    /* Ask for number of threads */
    if (argc != 2) Usage(argv[0]);
    thread_count = strtol(argv[1], NULL, 10);
 
    result = Count_sort(a, n, thread_count);
 
+   /* Print array - result */
    for ( z = 0; z < 10; z++ ) {
       printf( "%d\n", *(result[z]));
    }
